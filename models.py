@@ -13,23 +13,23 @@ class Comment(EmbeddedDocument):
 	comment = StringField()
 	timestamp = DateTimeField(default=datetime.now())
 
-class Idea(Document):
-
-	creator = StringField(max_length=120, required=True, verbose_name="First name", help_text="Please enter your first name")
-	title = StringField(max_length=120, required=True)
-	slug = StringField()
-	idea = StringField(required=True, verbose_name="What is your idea?")
-
-	# Category is a list of Strings
-	categories = ListField(StringField(max_length=30))
-
-	# Comments is a list of Document type 'Comments' defined above
-	comments = ListField( EmbeddedDocumentField(Comment) )
-
-	# Timestamp will record the date and time idea was created.
-	timestamp = DateTimeField(default=datetime.now())
-
-IdeaForm = model_form(Idea)
-
+class Sandwich(Document):
 	
-
+	creator = StringField(max_length=120, required=True, verbose_name="Name", help_text="What's your name?")
+	title = StringField(max_length=120,required=True)
+	slug=StringField()
+	#I would not have the 'idea' category
+	
+	#Category is a list of Strings
+	bread = ListField(StringField(max_length=30))
+	flavors = ListField(StringField(max_length = 30))
+	cheese = ListField(StringField(max_length = 30))
+	veggies = ListField(StringField(max_length = 30))
+	spread = ListField(StringField(max_length = 30))
+	
+	#comments is a list of Document type defined above
+	comments = ListField(EmbeddedDocumentField(Comment))
+	
+	timestamp = DateTimeField(default=datetime.now())
+	
+SandwichForm = model_form(Sandwich)

@@ -6,159 +6,185 @@ from unidecode import unidecode
 
 from flask import Flask, request, render_template, redirect, abort
 
-# import all of mongoengine
-# from mongoengine import *
+#Let's import mongoengine
 from flask.ext.mongoengine import mongoengine
 
-# import data models
+#let's import data structure
 import models
 
-app = Flask(__name__)   # create our flask app
-app.config['CSRF_ENABLED'] = False
+app = Flask(__name__) #we're creating our new flask app
+app.config["CSRF_ENABLED"] = False
 
-# --------- Database Connection ---------
-# MongoDB connection to MongoLab's database
-mongoengine.connect('mydata', host=os.environ.get('MONGOLAB_URI'))
+#Let's connect to MongoLab's database
+mongoengine.connect("mydata", host=os.environ.get("MONGOLAB_URI"))
 app.logger.debug("Connecting to MongoLabs")
 
+#categories = ["bread", "veggies", "cheese", "spread"]
+#sandwich subcategories borrowed from subway.com
+bread = ["white bread", "wheat", "whole grain", "flatbread"]
+flavors = ["ham","chicken", "turkey", "egg","roast beef","falafel", "tofu" ]
+cheese = ["cheddar","american","brie","goat"]
+veggies = ["lettuce", "onions", "tomato","kale"]
+spread = ["pesto", "ketchup"]
 
-categories = ['web','physical computing','software','video','music','installation','assistive technology','developing nations','business','social networks']
+# setup is done
+#####################################################
+# Routes
 
-# --------- Routes ----------
-
-# this is our main page
-@app.route("/", methods=['GET','POST'])
+#this is our main page
+@app.route("/", methods = ["GET", "POST"])
 def index():
-
-	app.logger.debug(request.form.getlist('categories'))
-
-	# get Idea form from models.py
-	idea_form = models.IdeaForm(request.form)
+	# this is for debugging
+	app.logger.debug(request.form.getlist("bread"))
+	app.logger.debug(request.form.getlist("flavors"))
+	app.logger.debug(request.form.getlist("cheese"))
+	app.logger.debug(request.form.getlist("veggies"))
+	app.logger.debug(request.form.getlist("spread"))
 	
-	if request.method == "POST" and idea_form.validate():
+	#let's bring Sandwiches from models.py
+	sandwich_form = models.SandwichForm(request.form)
 	
-		# get form data - create new idea
-		idea = models.Idea()
-		idea.creator = request.form.get('creator','anonymous')
-		idea.title = request.form.get('title','no title')
-		idea.slug = slugify(idea.title + " " + idea.creator)
-		idea.idea = request.form.get('idea','')
-		idea.categories = request.form.getlist('categories')
+	if request.method == "POST" and sandwich_form.validate():
 		
-		idea.save()
-
-		return redirect('/ideas/%s' % idea.slug)
-
+		#get form data and create new sandwich
+		# we're bring these from the models.py file
+		sandwich = models.Sandwich()
+		sandwich.creator = request.form.get("creator", "anonymous")
+		sandwich.title = request.form.get("title", "no title")
+		sandwich.slug = slugify(sandwich.title + " " + sandwich.creator)
+		sandwich.bread = request.form.getlist("bread")
+		sandwich.flavors = request.form.getlist("flavors")
+		sandwich.cheese = request.form.getlist("cheese")
+		sandwich.veggies = request.form.getlist("veggies")
+		sandwich.spread = request.form.getlist("spread") 
+		
+		sandwich.save()
+		
+		return redirect("/sandwiches/%s" % sandwich.slug)
+		
 	else:
-
-		if request.form.getlist('categories'):
-			for c in request.form.getlist('categories'):
-				idea_form.categories.append_entry(c)
-
-		# render the template
+		
+		if request.form.getlist("bread"):
+			for b in request.form.getlist("bread"):
+				sandwich_form.bread.append_entry(b)
+				
+		elif request.form.getlist("flavors"):
+			for f in request.form.getlist("flavors"):
+				sandwich_form.flavors.append_entry(f)
+				
+		elif request.form.getlist("cheese"):
+			for c in request.form.getlist("cheese"):
+				sandwich_form.cheese.append_entry(c)
+				
+		elif request.form.getlist("veggies"):
+			for v in request.form.getlist("veggies"):
+				sandwich_form.veggies.append_entry(v)
+				
+		elif request.form.getlist("spread"):
+			for s in request.form.getlist("spread"):
+				sandwich_form.spread.append_entry(s)
+				
 		templateData = {
-			'ideas' : models.Idea.objects(),
-			'categories' : categories,
-			'form' : idea_form
+			"sandwiches": models.Sandwich.objects(),
+			"bread": bread,
+			"flavors": flavors,
+			"cheese": cheese,
+			"veggies": veggies,
+			"spread": spread,
+			"form": sandwich_form		
 		}
-
+		
 		return render_template("main.html", **templateData)
-
-@app.route("/category/<cat_name>")
-def by_category(cat_name):
-
+		
+@app.route("/sandwich/<sandwich_lover>")
+def by_sandwich(sandwich_lover):
 	try:
-		ideas = models.Idea.objects(categories=cat_name)
-	except:
+		sandwiches = models.Sandwich.objects(sandwiches = sandwich_lover)
+	except: 
 		abort(404)
-
+		
 	templateData = {
-		'current_category' : {
-			'slug' : cat_name,
-			'name' : cat_name.replace('_',' ')
+		"current_sandwich":{
+		"slug": sandwich_lover,
+		"name": sandwich_lover("_", " ")
 		},
-		'ideas' : ideas,
-		'categories' : categories
-	}
-
-	return render_template('category_listing.html', **templateData)
-
-
-
-@app.route("/ideas/<idea_slug>")
-def idea_display(idea_slug):
-
-	# get idea by idea_slug
+		"sandwiches": sandwiches,
+		"bread": bread,
+		"flavors": flavors,
+		"cheese": cheese,
+		"veggies": veggies,
+		"spread": spread,
+		"form": sandwich_form
+		}
+		
+	return render_template("sandwich_listing.html", **templateData)
+		
+@app.route("/sandwiches/<sandwich_slug>")
+def sandwich_display(sandwich_slug):
+	#get the sandwich by sandwich_slug
 	try:
-		idea = models.Idea.objects.get(slug=idea_slug)
+		sandwich = models.Sandwich.objects.get(slug = sandwich_slug)
 	except:
 		abort(404)
-
-	# prepare template data
+		
+	#prepare template data
 	templateData = {
-		'idea' : idea
+		"sandwich": sandwich	
 	}
-
-	# render and return the template
-	return render_template('idea_entry.html', **templateData)
 	
-@app.route("/ideas/<idea_id>/comment", methods=['POST'])
-def idea_comment(idea_id):
+	#render and return the template
+	return render_template("sandwich_entry.html", **templateData)
+	
 
-	name = request.form.get('name')
-	comment = request.form.get('comment')
-
-	if name == '' or comment == '':
-		# no name or comment, return to page
+@app.route("/sandwiches/<sandwich_id>/comment", methods = ["POST"])
+def sandwich_comment(sandwich_id):
+	name = request.form.get("name")
+	comment = request.form.get("comment")
+	
+	if name =="" or comment =="":
+		# if there's no name or comment, return to page
 		return redirect(request.referrer)
-
-
-	#get the idea by id
+		
+	# get the sandwich by id
 	try:
-		idea = models.Idea.objects.get(id=idea_id)
+		sandwich = models.Sandwich.objects.get(id = sandwich_id)
 	except:
-		# error, return to where you came from
+		#error, then return to where we were before
 		return redirect(request.referrer)
-
-
-	# create comment
+		
+	# Let's create comment
 	comment = models.Comment()
-	comment.name = request.form.get('name')
-	comment.comment = request.form.get('comment')
+	comment.name = request.form.get("name")
+	comment.comment = request.form.get("comment")
 	
-	# append comment to idea
-	idea.comments.append(comment)
-
-	# save it
-	idea.save()
-
-	return redirect('/ideas/%s' % idea.slug)
-
-
+	#append comment to sandwich
+	sandwich.comments.append(comment)
+	
+	#save it
+	sandwich.save()
+	
+	return redirect("/sandwiches/%s" % sandwich.slug)
+	
 @app.errorhandler(404)
 def page_not_found(error):
-    return render_template('404.html'), 404
-
-
-# slugify the title 
-# via http://flask.pocoo.org/snippets/5/
+	return render_template("404.html"), 404
+	
+#Below is 'slugifying' function from title input
 _punct_re = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
-def slugify(text, delim=u'-'):
+def slugify(text,delim=u"-"):
 	"""Generates an ASCII-only slug."""
 	result = []
 	for word in _punct_re.split(text.lower()):
 		result.extend(unidecode(word).split())
 	return unicode(delim.join(result))
-
-
-# --------- Server On ----------
-# start the webserver
+	
+####################################################
 if __name__ == "__main__":
 	app.debug = True
 	
-	port = int(os.environ.get('PORT', 5000)) # locally PORT 5000, Heroku will assign its own port
-	app.run(host='0.0.0.0', port=port)
-
-
-
+	port = int(os.environ.get("PORT", 5000)) # this is for local port 5000
+	app.run(host="0.0.0.0", port = port)
+	
+				
+		
 	
