@@ -7,6 +7,7 @@ from unidecode import unidecode
 from flask import Flask, request, render_template, redirect, abort
 
 #Let's import mongoengine
+from mongoengine import*
 from flask.ext.mongoengine import mongoengine
 
 #let's import data structure
