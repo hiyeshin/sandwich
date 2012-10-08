@@ -7,28 +7,27 @@
 
 	<!-- left column -->
 	<div class="span12">
-		<h2>IDEA: {{ idea.title }}</h2>
-		<p>By {{ idea.creator }}</p>
+		<h2>Sandwich: {{ sandwich.title }}</h2>
+		<p>By {{ sandwich.creator }}</p>
 		<hr>
-		<p>{{ idea.idea }}</p>
 		<p>
 			<ul>
-			{% for c in idea.categories %}
-			<li>{{ c|replace("_"," ") }}</li>
+			{% for b in sandwich.bread %}
+			<li>{{ b|replace("_"," ") }}</li>
 			{% endfor %}
 			</ul>
 		</p>
 
-		<p>added: {{ idea.timestamp }} | id: {{ idea.id }}</p>
+		<p>added: {{ sandwich.timestamp }} | id: {{ sandwich.id }}</p>
 		
 		<hr>
 
-		<h3>Comments ( {{ idea.comments|length }} )</h3>
+		<h3>Comments ( {{ sandwich.comments|length }} )</h3>
 		<div class="row">
 
 			<!-- DISPLAY COMMENTS -->
 			<div class="span5">
-				{% for comment in idea.comments %}
+				{% for comment in sandwich.comments %}
 				<div class="comment">
 					<span class="commenter">{{ comment.name }} said,</span><br>
 					<p>{{ comment.comment }}</p>
@@ -40,7 +39,7 @@
 
 			<!-- ADD COMMENT -->
 			<div class="span5">
-				<form method="POST" action="/ideas/{{ idea.id }}/comment">
+				<form method="POST" action="/sandwiches/{{ sandwich.id }}/comment">
 					<label for="name">First Name</label>
 					<input type="text" id="name" name="name">
 					
