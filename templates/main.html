@@ -9,12 +9,12 @@
 		<h3>Submitted Sandwiches</h3>
 		
 		{% for sandwich in sandwiches %}
-			<h4><a href="/sandwiches/{{sandwich.slug}}">{{sandwich.title}}</a></h4>
-			<p>by {{sandwich.creator}}</p>
+			<h4><a href="/sandwiches/{{ sandwich.slug }}">{{sandwich.title}}</a></h4>
+			<p>by {{ sandwich.creator }}</p>
 			<p>
 			<!--below might need some debuggings -->
 			{% for lover in sandwich.bread %} 
-				<span class = "label label-inverse"><a href = "/sammie/{{lover}}">{{lover|replace("_"," ")}}</a></span>
+				<span class = "label label-inverse"><a href = "/sammie/{{ lover }}">{{ lover|replace("_"," ")}}</a></span>
 			{% endfor %}
 			<hr/>
 		{% endfor %}
@@ -22,6 +22,8 @@
 	</div>
 	
 	<div class = "span6">
+		
+		
 		<form method="POST" action="/">
 			<legend><h3>Share Your Sandwiches</h3></legend>
 			
@@ -42,7 +44,7 @@
 						-->
 						
 			{{ form.sandwich.label }}
-			{{ render_textarea(form.sandwich, cols="50", rows="6") }}{# render_textarea inside _form_helpers.html #}
+			{{ render_textarea(form.sandwich, cols="50", rows="6") }} {# render_textarea inside _form_helpers.html #}
 			{{ render_error(form.sandwich) }} {# render_error inside _form_helpers.html #}
 			
 			<br>
@@ -52,7 +54,7 @@
 			{# comment - loop through categories and create checkboxes #}
 			{% for b in bread|sort %}
 			<label class = "checkbox">
-			<input type = "checkbox" name = "bread" value = "{{b|replace(" ", "-")}}" {% if b|replace(" ","_") in form.bread.data %}checked=checked{% endif %} > {{ b|title }}}>
+			<input type = "checkbox" name = "bread" value = "{{ b|replace(" ", "_")}}" {% if b|replace(" ","_") in form.bread.data %}checked=checked{% endif %} > {{ b|title }}
 			</label>
 			{% endfor %}
 			
