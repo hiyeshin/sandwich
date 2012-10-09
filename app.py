@@ -22,6 +22,13 @@ mongoengine.connect('mydata', host=os.environ.get('MONGOLAB_URI'))
 app.logger.debug("Connecting to MongoLabs")
 
 bread = ["plain", "whole grain", "wheat"]
+veggies = ["lettuce", "tomato", "potato"]
+flavors = ["chicken", "turkey", "ham", "roast beef", "falafel", "tofu"]
+cheese = ["cheddar", "mozarella", "goat", "brie"]
+spread = ["mayo", "hummus", "pesto"]
+inventive = ["chocolate","gummy","oreo", "udon", "rice"]
+
+#inventive sandwich!
 # --------- Routes ----------
 
 # this is our main page
@@ -33,7 +40,7 @@ def index():
 	# get Idea form from models.py
 	sandwich_form = models.SandwichForm(request.form)
 	
-	if request.method == "POST" and idea_form.validate():
+	if request.method == "POST" and sandwich_form.validate():
 	
 		# get form data - create new idea
 		# bring from the models.py file
@@ -43,6 +50,12 @@ def index():
 		sandwich.slug = slugify(sandwich.title + " " + sandwich.creator)
 		sandwich.sandwich = request.form.get('sandwich','')
 		sandwich.bread = request.form.getlist('bread')
+		sandwich.veggies = request.form.getlist('veggies')
+		sandwich.flavors = request.form.getlist('flavors')
+		sandwich.cheese = request.form.getlist('cheeses')
+		sandwich.spread = request.form.getlist('spread')
+		sandwich.inventive = request.form.getlist('inventive')
+		
 		
 		sandwich.save()
 
@@ -53,11 +66,37 @@ def index():
 		if request.form.getlist('bread'):
 			for b in request.form.getlist('bread'):
 				sandwich_form.bread.append_entry(b)
+				
+		elif request.form.getlist('veggies'):
+			for v in request.form.getlist('veggies'):
+				sandwich_form.veggies.append_entry(v)
+				
+		elif request.form.getlist('flavors'):
+			for f in request.form.getlist('flavors'):
+				sandwich_form.flavors.append_entry(f)
+				
+		elif request.form.getlist('cheese'):
+			for c in request.form.getlist('cheese'):
+				sandwich_form.cheese.append_entry(c)
+				
+		elif request.form.getlist('spread'):
+			for s in request.form.getlist('spread'):
+				sandwich_form.spread.append_entry(s)
+				
+		elif request.form.getlist('inventive'):
+			for i in request.form.getlist('inventive'):
+				sandwich_form.inventive.append_entry(i)		
+				
 
 		# render the template
 		templateData = {
 			'sandwiches' : models.Sandwich.objects(),
 			'bread' : bread,
+			'veggies': veggies,
+			'flavors': flavors,
+			'cheese': cheese,
+			'spread': spread,
+			'inventive': inventive,
 			'form' : sandwich_form
 		}
 
@@ -78,8 +117,13 @@ def by_sammie(sandwich_lover):
 			'name' : sandwich_lover.replace('_',' ')
 		},
 		'sandwiches' : sandwiches,
-		'bread' : bread
-	}
+		'bread' : bread,
+		'veggies' : veggies,
+		'flavors' : flavors,
+		'cheese' : cheese,
+		'spread' : spread,
+		'inventive' : inventive,
+		}
 
 	return render_template('sammie_listing.html', **templateData)
 

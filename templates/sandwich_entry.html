@@ -18,7 +18,46 @@
 			{% endfor %}
 			</ul>
 		</p>
+		
+		<p>
+			<ul>
+			{% for v in sandwich.veggies %}
+			<li>{{ v|replace("_"," ") }}</li>
+			{% endfor %}
+			</ul>			
+		</p>
+		
+		<p>
+			<ul>
+			{% for f in sandwich.flavors %}
+			<li>{{ f|replace("_"," ") }}</li>
+			{% endfor %}
+			</ul>			
+		</p>
 
+		<p>
+			<ul>
+			{% for c in sandwich.cheese %}
+			<li>{{ c|replace("_"," ") }}</li>
+			{% endfor %}
+			</ul>			
+		</p>
+		
+		<p>
+			<ul>
+			{% for s in sandwich.spread %}
+			<li>{{ s|replace("_"," ") }}</li>
+			{% endfor %}
+			</ul>			
+		</p>
+		
+		<p>
+			<ul>
+			{% for i in sandwich.inventive %}
+			<li>{{ i|replace("_"," ") }}</li>
+			{% endfor %}
+			</ul>			
+		</p>
 		<p>added: {{ sandwich.timestamp }} | id: {{ sandwich.id }}</p>
 		
 		<hr>

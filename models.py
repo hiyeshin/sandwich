@@ -22,6 +22,11 @@ class Sandwich(Document):
 
 	# Category is a list of Strings
 	bread = ListField(StringField(max_length=30))
+	veggies = ListField(StringField(max_length=30))
+	flavors = ListField(StringField(max_length=30))
+	cheese = ListField(StringField(max_length=30))
+	spread = ListField(StringField(max_length=30))
+	inventive = ListField(StringField(max_length=30))
 
 	# Comments is a list of Document type 'Comments' defined above
 	comments = ListField( EmbeddedDocumentField(Comment) )
