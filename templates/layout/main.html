@@ -14,7 +14,7 @@
 
         <!-- Get Font from Google http://www.google.com/webfonts -->
         <link href='http://fonts.googleapis.com/css?family=Peralta' rel='stylesheet' type='text/css'>
-
+		
         {% block styles %}{% endblock %}
 
     </head>
@@ -25,7 +25,9 @@
         <div class="container">
 
             <h1 class="pageheader">
-                <a href="/">sandwich survey</a>
+                <a href="/">
+				<img src = "{{ url_for('static', filename='img/logo.png') }}" width = "150" height = "75">
+				</a>
             </h1>
 
             <hr>
@@ -36,8 +38,9 @@
 
             <hr/>
             <footer>
-                <p><a href="http://www.hiyeshin.com">2012 www.hiyeshin.com</a>
+                <p>©2012 <a href="http://www.hiyeshin.com">www.hiyeshin.com </a>
                </p>
+				<p>All rights resereved.</p>
             </footer>
 
         </div> <!-- /container -->
