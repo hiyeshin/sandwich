@@ -26,10 +26,35 @@ div.container{
 h1.pageheader {
 	margin: 20px;
 }
-	
 
+h3{
+	font-family: "Rockwell", American Typewriter, Sans-Serif;
+	font-style: bold;
+	font-size: 28 px;
+	color: #65A7C1;
+	
+}
+
+h4{
+	font-family: "Rockwell", American Typewriter, Sans-Serif;
+	font-style: italic;
+	font-size: 22 px;
+	color: #777777;
+}
+
+
+p{
+	font-family: "Helvetica", Serif;
+	
+}	
+	
+	
+label{
+	font-size: 14px;
+}
 
 span.label a {
+	font-family: "Rockwell", American Typewriter, Sans-Serif;
 	color:#fff;
 }
 
