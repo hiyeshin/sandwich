@@ -3,53 +3,28 @@
 
 {% block body %}
 
-<div class = "row">
-	<!--left column -->
-	<div class = "span6">
-		<h3>Submitted Sandwiches</h3>
-		
-		{% for sandwich in sandwiches %}
-			<h4><a href="/sandwiches/{{ sandwich.slug }}">{{sandwich.title}}</a></h4>
-			<p>by {{ sandwich.creator }}</p>
-			<p>
-			<!--below might need some debuggings -->
-			{% for lover in sandwich.bread %} 
-				<span class = "label label-inverse"><a href = "/sammie/{{ lover }}">{{ lover|replace("_"," ")}}</a></span>
-			{% endfor %}
-			<hr/>
-		{% endfor %}
-		
-	</div>
-	
-	<div class = "span6">
-		
-		
+
+<div class"row-fluid">	
+	<div class = "span12">	
 		<form method="POST" action="/">
-			<legend><h3>Share Your Sandwiches</h3></legend>
+			<legend><h3>Let's make your favorite sandwich!</h3></legend>
 			
 			{{ form.creator.label(class ="myLabelCssClass") }}
 			{{ form.creator(class="myTextboxCssClass", type="textarea") }}
 			{{ render_error(form.creator) }} {# render_error inside _form_helpers.html #}
-			<!--
-						<label for="creator">First Name</label>
-						<input type="text" id="creator" name="creator" value="{{ form.creator }}">
-						-->
 						
 			{{ form.title.label(class="myLabelCssClass") }}
 			{{ form.title(class="myTextboxCssClass", type="textarea") }}
 			{{ render_error(form.title) }} {# render_error inside _form_helpers.html #}
-			<!--
-						<label for="title">Project Title</label>
-						<input type="text" id="title" name="title">
-						-->
 						
 			{{ form.sandwich.label }}
 			{{ render_textarea(form.sandwich, cols="50", rows="6") }} {# render_textarea inside _form_helpers.html #}
 			{{ render_error(form.sandwich) }} {# render_error inside _form_helpers.html #}
-			
-			<br>
-			<label>Bread</label>
-			<span class="help-block"> Select your bread. </span>
+
+			<div class = "row-fluid">		
+				<div class = "span2">		
+					<label>Bread</label>
+		<!--	<span class="help-block"> Select your bread. </span> -->
 			
 			{# comment - loop through categories and create checkboxes #}
 			{% for b in bread|sort %}
@@ -57,62 +32,95 @@
 			<input type = "checkbox" name = "bread" value = "{{ b|replace(" ", "_")}}" {% if b|replace(" ","_") in form.bread.data %}checked=checked{% endif %} > {{ b|title }}
 			</label>
 			{% endfor %}
+				</div>
 			
-			<label>Veggies</label>
-			<span class="help-block"> Select your veggies. </span>
+				<div class = "span2">
+				<label>Veggies</label>
+		<!--	<span class="help-block"> Select your veggies. </span> -->
 			
 			{# comment - loop through categories and create checkboxes #}
 			{% for v in veggies|sort %}
-			<label class = "checkbox">
-			<input type = "checkbox" name = "veggies" value = "{{ v|replace(" ", "_")}}" {% if v|replace(" ","_") in form.veggies.data %}checked=checked{% endif %} > {{ v|title }}
-			</label>
+				<label class = "checkbox">
+					<input type = "checkbox" name = "veggies" value = "{{ v|replace(" ", "_")}}" {% if v|replace(" ","_") in form.veggies.data %}checked=checked{% endif %} > {{ v|title }}
+				</label>
 			{% endfor %}
-			
-			<label>Flavors</label>
-			<span class="help-block"> Select your flavors. </span>
+				</div>
+		
+				<div class = "span2">	
+				<label>Flavors</label>
+		<!--	<span class="help-block"> Select your flavors. </span> -->
 			
 			{# comment - loop through categories and create checkboxes #}
 			{% for f in flavors|sort %}
-			<label class = "checkbox">
-			<input type = "checkbox" name = "flavors" value = "{{ f|replace(" ", "_")}}" {% if f|replace(" ","_") in form.flavors.data %}checked=checked{% endif %} > {{ f|title }}
-			</label>
+				<label class = "checkbox">
+					<input type = "checkbox" name = "flavors" value = "{{ f|replace(" ", "_")}}" {% if f|replace(" ","_") in form.flavors.data %}checked=checked{% endif %} > {{ f|title }}
+				</label>
 			{% endfor %}
-			
-			<label>Cheese</label>
-			<span class="help-block"> Select your cheese. </span>
+				</div>
+		
+				<div class = "span2">
+				<label>Cheese</label>
+		<!--	<span class="help-block"> Select your cheese. </span> -->
 			
 			{# comment - loop through categories and create checkboxes #}
 			{% for c in cheese|sort %}
-			<label class = "checkbox">
-			<input type = "checkbox" name = "cheese" value = "{{ c|replace(" ", "_")}}" {% if c|replace(" ","_") in form.cheese.data %}checked=checked{% endif %} > {{ c|title }}
-			</label>
+				<label class = "checkbox">
+					<input type = "checkbox" name = "cheese" value = "{{ c|replace(" ", "_")}}" {% if c|replace(" ","_") in form.cheese.data %}checked=checked{% endif %} > {{ c|title }}
+				</label>
 			{% endfor %}
-			
-			<label>Spread</label>
-			<span class="help-block"> Select your spread. </span>
+				</div>
+		
+				<div class = "span2">	
+				<label>Spread</label>
+		<!--	<span class="help-block"> Select your spread. </span> -->
 			
 			{# comment - loop through categories and create checkboxes #}
 			{% for s in spread|sort %}
-			<label class = "checkbox">
-			<input type = "checkbox" name = "spread" value = "{{ s|replace(" ", "_")}}" {% if s|replace(" ","_") in form.spread.data %}checked=checked{% endif %} > {{ s|title }}
-			</label>
+				<label class = "checkbox">
+					<input type = "checkbox" name = "spread" value = "{{ s|replace(" ", "_")}}" {% if s|replace(" ","_") in form.spread.data %}checked=checked{% endif %} > {{ s|title }}
+				</label>
 			{% endfor %}
+				</div>
 			
-			<label>Inventive</label>
-			<span class="help-block"> Select your inventive ingredients. </span>
+				<div class = "span2">
+				<label>Inventive</label>
+		<!--	<span class="help-block"> Select your inventive ingredients. </span> -->
 			
 			{# comment - loop through categories and create checkboxes #}
 			{% for i in inventive|sort %}
-			<label class = "checkbox">
-			<input type = "checkbox" name = "inventive" value = "{{ i|replace(" ", "_")}}" {% if i|replace(" ","_") in form.inventive.data %}checked=checked{% endif %} > {{ i|title }}
-			</label>
+				<label class = "checkbox">
+					<input type = "checkbox" name = "inventive" value = "{{ i|replace(" ", "_")}}" {% if i|replace(" ","_") in form.inventive.data %}checked=checked{% endif %} > {{ i|title }}
+				</label>
 			{% endfor %}
+				</div>
 			
 			<button type = "submit" class = "btn btn-primary"> Add Sandwich </button>
 		</form>
 	</div>
-	
 </div>
+	
+	<div class = "row-fluid">
+		<div class = "span12">
+			<h3>Look what others love...</h3>
+
+			{% for sandwich in sandwiches %}
+				<div class = "span2">
+				<h5><a href="/sandwiches/{{ sandwich.slug }}">{{sandwich.title}}</a></h5>
+				<p>by {{ sandwich.creator }}</p>
+				<p>
+				<!--below might need some debuggings -->
+				{% for lover in sandwich.bread %} 
+					<span class = "label label-inverse"><a href = "/sammie/{{ lover }}">{{ lover|replace("_"," ")}}</a></span>
+				</div>
+				{% endfor %}
+	
+			{% endfor %}
+
+		</div>
+	</div>
+
+
+
 
 {% endblock %}
 

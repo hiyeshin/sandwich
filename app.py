@@ -56,7 +56,6 @@ def index():
 		sandwich.spread = request.form.getlist('spread')
 		sandwich.inventive = request.form.getlist('inventive')
 		
-		
 		sandwich.save()
 
 		return redirect('/sandwiches/%s' % sandwich.slug)
