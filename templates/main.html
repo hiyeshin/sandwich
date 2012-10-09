@@ -19,12 +19,12 @@
 						
 			{{ form.sandwich.label }}
 			{{ render_textarea(form.sandwich, cols="50", rows="6") }} {# render_textarea inside _form_helpers.html #}
-			{{ render_error(form.sandwich) }} {# render_error inside _form_helpers.html #}
-
+			{{ render_error(form.sandwich) }} {# render_error inside _form_helpers.html #} 
+ 
 			<div class = "row-fluid">		
 				<div class = "span2">		
 					<label>Bread</label>
-		<!--	<span class="help-block"> Select your bread. </span> -->
+		
 			
 			{# comment - loop through categories and create checkboxes #}
 			{% for b in bread|sort %}
@@ -83,18 +83,9 @@
 				</div>
 			
 				<div class = "span2">
-				<label>Inventive</label>
-		<!--	<span class="help-block"> Select your inventive ingredients. </span> -->
-			
-			{# comment - loop through categories and create checkboxes #}
-			{% for i in inventive|sort %}
-				<label class = "checkbox">
-					<input type = "checkbox" name = "inventive" value = "{{ i|replace(" ", "_")}}" {% if i|replace(" ","_") in form.inventive.data %}checked=checked{% endif %} > {{ i|title }}
-				</label>
-			{% endfor %}
-				</div>
-			
-			<button type = "submit" class = "btn btn-primary"> Add Sandwich </button>
+					<div class = "span2">
+						<button type = "submit" class = "btn btn-success"> Make me sandwich! </button>
+					</div>
 		</form>
 	</div>
 </div>
@@ -111,6 +102,8 @@
 				<!--below might need some debuggings -->
 				{% for lover in sandwich.bread %} 
 					<span class = "label label-inverse"><a href = "/sammie/{{ lover }}">{{ lover|replace("_"," ")}}</a></span>
+					
+			
 				</div>
 				{% endfor %}
 	

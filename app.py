@@ -28,7 +28,6 @@ cheese = ["cheddar", "mozarella", "goat", "brie"]
 spread = ["mayo", "hummus", "pesto"]
 inventive = ["chocolate","gummy","oreo", "udon", "rice"]
 
-#inventive sandwich!
 # --------- Routes ----------
 
 # this is our main page
@@ -39,23 +38,23 @@ def index():
 
 	# get Idea form from models.py
 	sandwich_form = models.SandwichForm(request.form)
-	
+
 	if request.method == "POST" and sandwich_form.validate():
-	
+
 		# get form data - create new idea
 		# bring from the models.py file
 		sandwich = models.Sandwich()
 		sandwich.creator = request.form.get('creator','anonymous')
 		sandwich.title = request.form.get('title','no title')
 		sandwich.slug = slugify(sandwich.title + " " + sandwich.creator)
-		sandwich.sandwich = request.form.get('sandwich','')
+		sandwich.sandwich = request.form.get('sandwich','sandwich')
 		sandwich.bread = request.form.getlist('bread')
 		sandwich.veggies = request.form.getlist('veggies')
 		sandwich.flavors = request.form.getlist('flavors')
 		sandwich.cheese = request.form.getlist('cheeses')
 		sandwich.spread = request.form.getlist('spread')
 		sandwich.inventive = request.form.getlist('inventive')
-		
+
 		sandwich.save()
 
 		return redirect('/sandwiches/%s' % sandwich.slug)
@@ -65,27 +64,27 @@ def index():
 		if request.form.getlist('bread'):
 			for b in request.form.getlist('bread'):
 				sandwich_form.bread.append_entry(b)
-				
+
 		elif request.form.getlist('veggies'):
 			for v in request.form.getlist('veggies'):
 				sandwich_form.veggies.append_entry(v)
-				
+
 		elif request.form.getlist('flavors'):
 			for f in request.form.getlist('flavors'):
 				sandwich_form.flavors.append_entry(f)
-				
+
 		elif request.form.getlist('cheese'):
 			for c in request.form.getlist('cheese'):
 				sandwich_form.cheese.append_entry(c)
-				
+
 		elif request.form.getlist('spread'):
 			for s in request.form.getlist('spread'):
 				sandwich_form.spread.append_entry(s)
-				
+
 		elif request.form.getlist('inventive'):
 			for i in request.form.getlist('inventive'):
 				sandwich_form.inventive.append_entry(i)		
-				
+
 
 		# render the template
 		templateData = {
@@ -144,7 +143,7 @@ def sandwich_display(sandwich_slug):
 
 	# render and return the template
 	return render_template('sandwich_entry.html', **templateData)
-	
+
 @app.route("/sandwiches/<sandwich_id>/comment", methods=['POST'])
 def sandwich_comment(sandwich_id):
 
@@ -168,7 +167,7 @@ def sandwich_comment(sandwich_id):
 	comment = models.Comment()
 	comment.name = request.form.get('name')
 	comment.comment = request.form.get('comment')
-	
+
 	# append comment to idea
 	sandwich.comments.append(comment)
 
@@ -198,9 +197,6 @@ def slugify(text, delim=u'-'):
 # start the webserver
 if __name__ == "__main__":
 	app.debug = True
-	
+
 	port = int(os.environ.get('PORT', 5000)) # locally PORT 5000, Heroku will assign its own port
 	app.run(host='0.0.0.0', port=port)
-
-
-

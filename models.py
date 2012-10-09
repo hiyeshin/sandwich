@@ -14,7 +14,7 @@ class Comment(EmbeddedDocument):
 	timestamp = DateTimeField(default=datetime.now())
 
 class Sandwich(Document):
-	
+
 	creator = StringField(max_length=120, required=True, verbose_name="First name", help_text="Please enter your first name")
 	title = StringField(max_length=120, required=True)
 	slug = StringField()
@@ -34,5 +34,5 @@ class Sandwich(Document):
 	# Timestamp will record the date and time idea was created.
 	timestamp = DateTimeField(default=datetime.now())
 
-	
+
 SandwichForm = model_form(Sandwich)

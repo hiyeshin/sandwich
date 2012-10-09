@@ -5,12 +5,11 @@
 
 <div class="row">
 
-	<!-- left column -->
 	<div class="span6">
-		<h3>Sandwiches: {{ current_sammie.get('name')|title }}</h3>
+		<h3>Sandwiches: {{ current_sammie.get('name')|sandwich_name }}</h3>
 		
 		{% for sandwich in sandwiches %}
-			<h4><a href="/sandwiches/{{ sandwich.slug }}">{{ sandwich.title }}</a></h4>
+			<h4><a href="/sandwiches/{{ sandwich.slug }}">{{ sandwich.sandwich_name }}</a></h4>
 			<p>by {{ sandwich.creator }}</p>
 			<p>
 			{% for lover in sandwich.bread %}
@@ -33,10 +32,6 @@
 
 		<a href="/" class="btn btn-large btn-info">Add Your Sandwich</a>
 	</div>
-
-	
-
-	
 
 </div>
 
