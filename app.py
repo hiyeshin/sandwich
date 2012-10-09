@@ -47,7 +47,7 @@ def index():
 		sandwich.creator = request.form.get('creator','anonymous')
 		sandwich.title = request.form.get('title','no title')
 		sandwich.slug = slugify(sandwich.title + " " + sandwich.creator)
-		sandwich.sandwich = request.form.get('sandwich','sandwich')
+	#	sandwich.sandwich = request.form.get('sandwich','sandwich')
 		sandwich.bread = request.form.getlist('bread')
 		sandwich.veggies = request.form.getlist('veggies')
 		sandwich.flavors = request.form.getlist('flavors')

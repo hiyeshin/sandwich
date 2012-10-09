@@ -18,7 +18,7 @@ class Sandwich(Document):
 	creator = StringField(max_length=120, required=True, verbose_name="First name", help_text="Please enter your first name")
 	title = StringField(max_length=120, required=True)
 	slug = StringField()
-	sandwich = StringField(required=True, verbose_name="What is your sandwich?")
+	sandwich = StringField(verbose_name="What is your sandwich?")
 
 	# Category is a list of Strings
 	bread = ListField(StringField(max_length=30))

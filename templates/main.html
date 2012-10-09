@@ -12,15 +12,15 @@
 			{{ form.creator.label(class ="myLabelCssClass") }}
 			{{ form.creator(class="myTextboxCssClass", type="textarea") }}
 			{{ render_error(form.creator) }} {# render_error inside _form_helpers.html #}
-						
+			
 			{{ form.title.label(class="myLabelCssClass") }}
 			{{ form.title(class="myTextboxCssClass", type="textarea") }}
 			{{ render_error(form.title) }} {# render_error inside _form_helpers.html #}
 						
-			{{ form.sandwich.label }}
+	<!--		{{ form.sandwich.label }}
 			{{ render_textarea(form.sandwich, cols="50", rows="6") }} {# render_textarea inside _form_helpers.html #}
 			{{ render_error(form.sandwich) }} {# render_error inside _form_helpers.html #} 
- 
+ -->
 			<div class = "row-fluid">		
 				<div class = "span2">		
 					<label>Bread</label>
@@ -81,10 +81,10 @@
 				</label>
 			{% endfor %}
 				</div>
-			
+				
 				<div class = "span2">
 					<div class = "span2">
-						<button type = "submit" class = "btn btn-success"> Make me sandwich! </button>
+						<button type = "submit" class = "btn bun-large btn-success"> Make me a sandwich! </button>
 					</div>
 		</form>
 	</div>
@@ -102,11 +102,31 @@
 				<!--below might need some debuggings -->
 				{% for lover in sandwich.bread %} 
 					<span class = "label label-inverse"><a href = "/sammie/{{ lover }}">{{ lover|replace("_"," ")}}</a></span>
-					
-			
-				</div>
 				{% endfor %}
-	
+				
+				{% for lover in sandwich.veggies %} 
+					<span class = "label label-inverse"><a href = "/sammie/{{ lover }}">{{ lover|replace("_"," ")}}</a></span>
+				{% endfor %}
+				
+				{% for lover in sandwich.flavors %} 
+					<span class = "label label-inverse"><a href = "/sammie/{{ lover }}">{{ lover|replace("_"," ")}}</a></span>
+				{% endfor %}
+				
+				{% for lover in sandwich.cheese %} 
+					<span class = "label label-inverse"><a href = "/sammie/{{ lover }}">{{ lover|replace("_"," ")}}</a></span>
+				{% endfor %}
+				
+				{% for lover in sandwich.spread %} 
+					<span class = "label label-inverse"><a href = "/sammie/{{ lover }}">{{ lover|replace("_"," ")}}</a></span>
+				{% endfor %}
+				
+				{% for lover in sandwich.inventive %} 
+					<span class = "label label-inverse"><a href = "/sammie/{{ lover }}">{{ lover|replace("_"," ")}}</a></span>
+				{% endfor %}
+				
+				
+				
+				</div>
 			{% endfor %}
 
 		</div>
