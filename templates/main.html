@@ -1,8 +1,11 @@
 {% from "_form_helpers.html" import render_error, render_textarea %}
 {% extends "layout/main.html" %}
+<!--maybe "extends" means just extending the file so we can separate them to make it easy to organizes -->
 
 {% block body %}
 
+<!-- The biggest change is with WTForm validation is that the form labels, 
+field and errors can be automatically created and displayed for us. -->
 
 <div class"row-fluid">	
 	<div class = "span12">	
@@ -17,13 +20,23 @@
 			{{ form.title.label(class="myLabelCssClass") }}
 			{{ form.title(class="myTextboxCssClass", type="text", placeholder = "Red's rad sandwich") }}
 			{{ render_error(form.title) }} {# render_error inside _form_helpers.html #}
-	
+
+			<!-- If it were written in html files, it would be like this:
+			<label for "creator" First Name </label>
+				<input type = "text" id = "creator" name = "creator"
+				value "{{}form.creator}"
+
+			But now we really don't have to do like that, because we can use verbose name in models.py files
+			-->
+
+
+
+
 						
-	<!--		{{ form.sandwich.label }}
+	<!--	{{ form.sandwich.label }}
 			{{ render_textarea(form.sandwich, cols="50", rows="6") }} {# render_textarea inside _form_helpers.html #}
 			{{ render_error(form.sandwich) }} {# render_error inside _form_helpers.html #} 
  -->
-
 
 			<div class = "row-fluid">		
 				<div class = "span2">
@@ -48,6 +61,7 @@
 			{% endfor %}
 				</div>
 		
+
 				<div class = "span2">	
 				<label>Flavors</label>
 			{# comment - loop through categories and create checkboxes #}
@@ -58,6 +72,7 @@
 			{% endfor %}
 				</div>
 		
+
 				<div class = "span2">
 				<label>Cheese</label>
 			{# comment - loop through categories and create checkboxes #}
@@ -68,6 +83,7 @@
 			{% endfor %}
 				</div>
 		
+
 				<div class = "span2">	
 				<label>Spread</label>
 			{# comment - loop through categories and create checkboxes #}
@@ -78,6 +94,7 @@
 			{% endfor %}
 				</div>
 				
+
 				<div class = "span2">
 					<div class = "span2">
 						<button type = "submit" class = "btn bun-large btn-success"> Make me a sandwich! </button>

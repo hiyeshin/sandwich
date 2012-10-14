@@ -4,6 +4,8 @@ from mongoengine import *
 from flask.ext.mongoengine.wtf import model_form
 from datetime import datetime
 
+# WTForm is the form validation tool.
+
 class Log(Document):
 	text = StringField()
 	timestamp = DateTimeField(default=datetime.now())
@@ -14,6 +16,7 @@ class Comment(EmbeddedDocument):
 	timestamp = DateTimeField(default=datetime.now())
 
 class Sandwich(Document):
+	# All we need is just change VERBOSE NAME!
 
 	creator = StringField(max_length=120, required=True, verbose_name="First name", help_text="Please enter your first name")
 	title = StringField(max_length=120, required=True)
@@ -34,5 +37,7 @@ class Sandwich(Document):
 	# Timestamp will record the date and time idea was created.
 	timestamp = DateTimeField(default=datetime.now())
 
-
+# this is creating a validation form from the Sandwich models
+# We are creating a new WTForm object called SandwichForm.
+#this will be used to validate toe form.
 SandwichForm = model_form(Sandwich)

@@ -13,12 +13,13 @@ from flask.ext.mongoengine import mongoengine
 # import data models
 import models
 
-app = Flask(__name__)   # create our flask app
-app.config['CSRF_ENABLED'] = False
-
-# --------- Database Connection ---------
-# MongoDB connection to MongoLab's database
-mongoengine.connect('mydata', host=os.environ.get('MONGOLAB_URI'))
+# creating flask app
+app = Flask(__name__)
+#app.config['CSRF_ENABLED'] = False # it works without saying this line
+# If we want to debug, we can set it to "TRUE"
+# MongoDB connection to MongoLab's database using our variables from .env
+#mongoengine.connect('mydata', host=os.environ.get('MONGOLAB_URI'))
+connect('mydata', host=os.environ.get('MONGOLAB_URI'))
 app.logger.debug("Connecting to MongoLabs")
 
 bread = ["plain", "whole grain", "wheat"]
@@ -28,16 +29,17 @@ cheese = ["cheddar", "mozarella", "goat", "brie"]
 spread = ["mayo", "hummus", "pesto"]
 inventive = ["chocolate","gummy","oreo", "udon", "rice"]
 
-# --------- Routes ----------
-
 # this is our main page
+# if there's any incoming request under the form of POST, create a new sandwich
+# Else, just display the main.html template
 @app.route("/", methods=['GET','POST'])
-def index():
+def index(): # if there's any request on "/", this index would appear
 
-	app.logger.debug(request.form.getlist('bread'))
+	#app.logger.debug(request.form.getlist('bread'))
 
 	# get Idea form from models.py
 	sandwich_form = models.SandwichForm(request.form)
+	# this will hold all the functions for form display and validations
 
 	if request.method == "POST" and sandwich_form.validate():
 
@@ -54,13 +56,13 @@ def index():
 		sandwich.cheese = request.form.getlist('cheeses')
 		sandwich.spread = request.form.getlist('spread')
 		sandwich.inventive = request.form.getlist('inventive')
-
+# if the form is valid, it saves the idea and redirect to the new page
 		sandwich.save()
 
 		return redirect('/sandwiches/%s' % sandwich.slug)
 
-	else:
-
+	else: # this means that our form is not valid
+# we'll check the categories checkboxes
 		if request.form.getlist('bread'):
 			for b in request.form.getlist('bread'):
 				sandwich_form.bread.append_entry(b)
@@ -86,7 +88,7 @@ def index():
 				sandwich_form.inventive.append_entry(i)		
 
 
-		# render the template
+		# Build the templateData and return it to the user
 		templateData = {
 			'sandwiches' : models.Sandwich.objects(),
 			'bread' : bread,
