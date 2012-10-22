@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-# re is for importing regex (regular expression thingy)
 
 import os, datetime
 import re 
+# re is for importing regex (regular expression thingy)
 from unidecode import unidecode
 
 from flask import Flask, request, render_template, redirect, abort
-
 from mongoengine import *
 from flask.ext.mongoengine import mongoengine
 
@@ -16,16 +15,14 @@ import models
 app = Flask(__name__)
 #app.config['CSRF_ENABLED'] = False # it works without saying this line
 # If we want to debug, we can set it to "TRUE"
-# MongoDB connection to MongoLab's database using our variables from .env
-#mongoengine.connect('mydata', host=os.environ.get('MONGOLAB_URI'))
 connect('mydata', host=os.environ.get('MONGOLAB_URI'))
 app.logger.debug("Connecting to MongoLabs")
 
-bread = ["plain", "whole grain", "wheat"]
-veggies = ["lettuce", "tomato", "potato"]
+bread = ["plain", "whole grain", "wheat", "rosmary"]
+veggies = ["lettuce","spinach", "tomato", "potato"]
 flavors = ["chicken", "turkey", "ham", "roast beef", "falafel", "tofu"]
-cheese = ["cheddar", "mozarella", "goat", "brie"]
-spread = ["mayo", "hummus", "pesto"]
+cheese = ["cheddar", "mozzarella", "goat", "brie", "ricotta"]
+spread = ["mayo", "hummus", "pesto", "peanut butter", "jelly"]
 inventive = ["chocolate","gummy","oreo", "udon", "rice"]
 
 # this is our main page
@@ -55,13 +52,13 @@ def index(): # if there's any request on "/", this index would appear
 		sandwich.cheese = request.form.getlist('cheeses')
 		sandwich.spread = request.form.getlist('spread')
 		sandwich.inventive = request.form.getlist('inventive')
-# if the form is valid, it saves the idea and redirect to the new page
-		sandwich.save()
+
+		sandwich.save() # if it is valid, it saves the idea and redirect to the new page
 
 		return redirect('/sandwiches/%s' % sandwich.slug)
 
 	else: # this means that our form is not valid
-# we'll check the categories checkboxes
+		# we'll check the categories checkboxes
 		if request.form.getlist('bread'):
 			for b in request.form.getlist('bread'):
 				sandwich_form.bread.append_entry(b)
