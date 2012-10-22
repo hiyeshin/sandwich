@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
+# re is for importing regex (regular expression thingy)
 
 import os, datetime
-import re
+import re 
 from unidecode import unidecode
 
 from flask import Flask, request, render_template, redirect, abort
 
-# import all of mongoengine
 from mongoengine import *
 from flask.ext.mongoengine import mongoengine
 
-# import data models
 import models
 
 # creating flask app
