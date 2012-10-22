@@ -8,7 +8,7 @@ html{
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-	
+
 }
 
 body{
@@ -22,8 +22,16 @@ div.container{
 	background:#ffffff; 
 }
 
+h1{
+	font-family: "Helvetica", Sans-serif;
+	font-size: 48 px;
+	color: #777777;
+}
+
+
 h1.pageheader {
 	margin: 20px;
+
 }
 
 h3{
@@ -38,6 +46,13 @@ h4{
 	font-family: "Rockwell", American Typewriter, Sans-Serif;
 	font-style: italic;
 	font-size: 22 px;
+	color: #777777;
+}
+
+h5{
+	font-family: "Rockwell", American Typewriter, Sans-Serif;
+	font-style: bold;
+	font-size: 14 px;
 	color: #777777;
 }
 

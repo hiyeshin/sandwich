@@ -99,7 +99,6 @@ def index(): # if there's any request on "/", this index would appear
 		return render_template("main.html", **templateData)
 
 @app.route("/sammie/<sandwich_lover>")
-#category == sammie
 def by_sammie(sandwich_lover):
 
 	try:

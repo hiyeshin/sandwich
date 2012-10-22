@@ -8,19 +8,18 @@ field and errors can be automatically created and displayed for us. -->
 
 <div class"row-fluid">	
 	<div class = "span12">	
-		<form method="POST" action="/">
-		
+		<form method="POST" action="/">		
 			<legend><h3>Let's make your favorite sandwich!</h3></legend>
 			<div class = "row-fluid">
 				<div class = "span5">
-			{{ form.creator.label }}
+			<h5>{{ form.creator.label }}</h5>
 			{{ form.creator(type="text", placeholder = "e.g. Red") }}
 			{{ render_error(form.creator) }} 
 			{# render_error inside _form_helpers.html #}
 				</div>
 
 				<div class = "span5">
-			{{ form.title.label }}
+			<h5>{{ form.title.label }}</h5>
 			{{ form.title(type="text", placeholder = "Red's rad sandwich") }}
 			{{ render_error(form.title) }} 
 			{# render_error inside _form_helpers.html #}
@@ -34,7 +33,7 @@ field and errors can be automatically created and displayed for us. -->
 			<div class = "row-fluid">		
 				<div class = "span2">
 					
-					<label>Bread</label>
+					<label><h5>Bread</h5></label>
 
 				{% for b in bread|sort %}
 					<label class = "checkbox">
@@ -44,7 +43,7 @@ field and errors can be automatically created and displayed for us. -->
 					</div>
 			
 				<div class = "span2">
-				<label>Veggies</label>
+				<label><h5>Veggies</h5></label>
 
 			{# comment - loop through categories and create checkboxes #}
 			{% for v in veggies|sort %}
@@ -56,7 +55,7 @@ field and errors can be automatically created and displayed for us. -->
 		
 
 				<div class = "span2">	
-				<label>Flavors</label>
+				<label><h5>Flavors</h5></label>
 			{# comment - loop through categories and create checkboxes #}
 			{% for f in flavors|sort %}
 				<label class = "checkbox">
@@ -67,7 +66,7 @@ field and errors can be automatically created and displayed for us. -->
 		
 
 				<div class = "span2">
-				<label>Cheese</label>
+				<label><h5>Cheese</h5></label>
 			{# comment - loop through categories and create checkboxes #}
 			{% for c in cheese|sort %}
 				<label class = "checkbox">
@@ -78,7 +77,7 @@ field and errors can be automatically created and displayed for us. -->
 		
 
 				<div class = "span2">	
-				<label>Spread</label>
+				<label><h5>Spread</h5></label>
 			{# comment - loop through categories and create checkboxes #}
 			{% for s in spread|sort %}
 				<label class = "checkbox">
