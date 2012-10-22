@@ -11,17 +11,21 @@ field and errors can be automatically created and displayed for us. -->
 		<form method="POST" action="/">
 		
 			<legend><h3>Let's make your favorite sandwich!</h3></legend>
-			
+			<div class = "row-fluid">
+				<div class = "span5">
 			{{ form.creator.label }}
 			{{ form.creator(type="text", placeholder = "e.g. Red") }}
 			{{ render_error(form.creator) }} 
 			{# render_error inside _form_helpers.html #}
+				</div>
 
+				<div class = "span5">
 			{{ form.title.label }}
 			{{ form.title(type="text", placeholder = "Red's rad sandwich") }}
 			{{ render_error(form.title) }} 
 			{# render_error inside _form_helpers.html #}
-			
+				</div>
+			</div>
 	<!--	{{ form.sandwich.label }}
 			{{ render_textarea(form.sandwich, cols="50", rows="6") }} {# render_textarea inside _form_helpers.html #}
 			{{ render_error(form.sandwich) }} {# render_error inside _form_helpers.html #} 
@@ -83,11 +87,10 @@ field and errors can be automatically created and displayed for us. -->
 			{% endfor %}
 				</div>
 				
-
-				<div class = "span2">
-					<div class = "span2">
-						<button type = "submit" class = "btn bun-large btn-success"> Make me a sandwich! </button>
-					</div>
+				<div class = "span1">
+					<br /><br /><br />
+					<button type = "submit" class = "btn bun-large btn-success"> Make me a sandwich! </button>
+				</div>
 		</form>
 	</div>
 </div>

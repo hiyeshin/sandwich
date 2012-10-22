@@ -23,7 +23,7 @@ veggies = ["lettuce","spinach", "tomato", "potato"]
 flavors = ["chicken", "turkey", "ham", "roast beef", "falafel", "tofu"]
 cheese = ["cheddar", "mozzarella", "goat", "brie", "ricotta"]
 spread = ["mayo", "hummus", "pesto", "peanut butter", "jelly"]
-inventive = ["chocolate","gummy","oreo", "udon", "rice"]
+inventive = ["chocolate","gummy", "oreo", "udon", "rice"]
 
 # this is our main page
 # if there's any incoming request under the form of POST, create a new sandwich
