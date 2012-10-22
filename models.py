@@ -18,8 +18,8 @@ class Comment(EmbeddedDocument):
 class Sandwich(Document):
 	# All we need is just change VERBOSE NAME!
 
-	creator = StringField(max_length=120, required=True, verbose_name="First name", help_text="Please enter your first name")
-	title = StringField(max_length=120, required=True)
+	creator = StringField(max_length=120, required=True, verbose_name="First Name", help_text="Please enter your first name")
+	title = StringField(max_length=120, required=True, verbose_name = "Name your sandwich")
 	slug = StringField()
 	sandwich = StringField(verbose_name="What is your sandwich?")
 
