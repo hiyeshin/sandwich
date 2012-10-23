@@ -14,7 +14,6 @@ class Comment(EmbeddedDocument):
 
 class Sandwich(Document):
 	# All we need is just change VERBOSE NAME!
-
 	creator = StringField(max_length=120, required=True, verbose_name="First Name", help_text="Please enter your first name")
 	title = StringField(max_length=120, required=True, verbose_name = "Name your sandwich")
 	slug = StringField()
@@ -26,7 +25,7 @@ class Sandwich(Document):
 	flavors = ListField(StringField(max_length=30))
 	cheese = ListField(StringField(max_length=30))
 	spread = ListField(StringField(max_length=30))
-	inventive = ListField(StringField(max_length=30))
+	#inventive = ListField(StringField(max_length=30))
 
 	# Comments is a list of Document type 'Comments' defined above
 	comments = ListField( EmbeddedDocumentField(Comment) )

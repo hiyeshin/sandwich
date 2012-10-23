@@ -117,18 +117,17 @@ field and errors can be automatically created and displayed for us. -->
 				{% endfor %}
 				
 				{% for lover in sandwich.cheese %} 
-					<span class = "label"><a href = "/sammie/{{ lover }}">{{ lover|replace("_"," ")}}</a></span>
+					<span class = "label "><a href = "/sammie/{{ lover }}">{{ lover|replace("_"," ") }}</a></span>
 				{% endfor %}
 				
 				{% for lover in sandwich.spread %} 
 					<span class = "label label-info"><a href = "/sammie/{{ lover }}">{{ lover|replace("_"," ")}}</a></span>
 				{% endfor %}
 				
-				{% for lover in sandwich.inventive %} 
+				<!-- {% for lover in sandwich.inventive %} 
 					<span class = "label label-inverse"><a href = "/sammie/{{ lover }}">{{ lover|replace("_"," ")}}</a></span>
-				{% endfor %}
+				{% endfor %} -->
 							
-				
 				</div>
 			{% endfor %}
 

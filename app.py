@@ -13,16 +13,16 @@ import models
 
 # creating flask app
 app = Flask(__name__)
-#app.config['CSRF_ENABLED'] = False # it works without saying this line
+app.config['CSRF_ENABLED'] = False # it works without saying this line
 # If we want to debug, we can set it to "TRUE"
 connect('mydata', host=os.environ.get('MONGOLAB_URI'))
 app.logger.debug("Connecting to MongoLabs")
 
-bread = ["plain", "whole grain", "wheat", "rosmary"]
+bread = ["plain", "whole grain", "wheat", "rosmary", "bagel"]
 veggies = ["lettuce","spinach", "tomato", "potato"]
 flavors = ["chicken", "turkey", "ham", "roast beef", "falafel", "tofu"]
 cheese = ["cheddar", "mozzarella", "goat", "brie", "ricotta"]
-spread = ["mayo", "hummus", "pesto", "peanut butter", "jelly"]
+spread = ["mayo", "hummus", "pesto", "peanut butter", "jelly", "cream cheese"]
 inventive = ["chocolate","gummy", "oreo", "udon", "rice"]
 
 # this is our main page
@@ -32,7 +32,6 @@ inventive = ["chocolate","gummy", "oreo", "udon", "rice"]
 def index(): # if there's any request on "/", this index would appear
 
 	#app.logger.debug(request.form.getlist('bread'))
-
 	# get Idea form from models.py
 	sandwich_form = models.SandwichForm(request.form)
 	# this will hold all the functions for form display and validations
@@ -49,7 +48,7 @@ def index(): # if there's any request on "/", this index would appear
 		sandwich.bread = request.form.getlist('bread')
 		sandwich.veggies = request.form.getlist('veggies')
 		sandwich.flavors = request.form.getlist('flavors')
-		sandwich.cheese = request.form.getlist('cheeses')
+		sandwich.cheese = request.form.getlist('cheese')
 		sandwich.spread = request.form.getlist('spread')
 		sandwich.inventive = request.form.getlist('inventive')
 
@@ -92,7 +91,7 @@ def index(): # if there's any request on "/", this index would appear
 			'flavors': flavors,
 			'cheese': cheese,
 			'spread': spread,
-			'inventive': inventive,
+			#'inventive': inventive,
 			'form' : sandwich_form
 		}
 
